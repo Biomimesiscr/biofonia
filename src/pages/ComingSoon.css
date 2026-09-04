@@ -1,0 +1,8 @@
+@media (max-width: 640px) {
+  .bf-hero-title {
+    font-size: 34px !important;
+  }
+  .bf-hero {
+    padding: 72px 0 88px !important;
+  }
+}
