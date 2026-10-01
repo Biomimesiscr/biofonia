@@ -100,11 +100,36 @@ Using `{Model}` = `PostReportReason`, `{model}` = `postReportReason` as an examp
 7. **Verify** — `pnpm next typegen && pnpm exec tsc --noEmit && pnpm lint`, then
    curl each endpoint (happy path, 400, 422, 404).
 
+## Authentication
+
+Email/password and Google sign-in with **database sessions** (no auth library).
+
+- **Domain**: `User` and `Session` entities; value objects `Email`, `UserName`,
+  `Password`, `Biography`. Ports in `domain/auth/services/`: `IPasswordHasher`,
+  `ISessionTokenService`, `IGoogleIdentityProvider` (they live in domain because
+  infrastructure may not import `application/`).
+- **Application**: `AuthService` (register, login, Google login, session lookup,
+  logout) and `UserService.completeOnboarding`. Login failures always throw the
+  same `InvalidCredentialsError` (401 via `UnauthorizedError`).
+- **Infrastructure**: `ScryptPasswordHasher` (Node scrypt, `scrypt$N$r$p$salt$key`),
+  `CryptoSessionTokenService` (random token; sha256 stored as `Session.id`),
+  `GoogleOAuthIdentityProvider` (authorization code + PKCE via `fetch`, identity from
+  the OpenID userinfo endpoint).
+- **Presentation**: `presentation/auth/session.ts` builds `session.getCurrentUser()`,
+  `session.requireUser()`, `setSessionCookie`, `endSession` (wired in `di/container.ts`).
+  Cookie `biofonia_session`: httpOnly, `SameSite=Lax`, `Secure` in production.
+  `proxy.ts` refreshes the cookie on page GETs; the DB session (30 days, sliding) is
+  the source of truth.
+- **Flows**: Server Actions in `app/actions/auth.ts` (`login`, `register`, `logout`)
+  and `app/actions/onboarding.ts`; Google via `POST /api/auth/google` →
+  `GET /api/auth/google/callback`. Pages: `/acceso`, `/bienvenida` (onboarding).
+- Pages/actions needing a user call `session.requireUser()` and pass `user.id` to
+  services explicitly.
+- **Env**: `APP_URL`, `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` (see `.example.env`).
+  Google redirect URI: `${APP_URL}/api/auth/google/callback`.
+
 ## Not decided yet
 
-- **Auth**: there is no session/JWT yet. When added, put the session check in
-  `presentation/auth/` (a `requireUser(request)` helper called by controllers), and
-  pass the current user id into services as an explicit argument.
 - **Transactions** spanning several repositories: add a unit-of-work interface in
   `domain/core/` and a Prisma `$transaction` implementation in `infrastructure/`
   when the first use case needs it.
