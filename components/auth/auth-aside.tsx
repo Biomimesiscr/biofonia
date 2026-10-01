@@ -1,25 +1,10 @@
-import type { CSSProperties } from "react";
 import Link from "next/link";
+import { SoundwaveGraphic } from "@/components/shared/soundwave-graphic";
 import { Eyebrow } from "@/components/shared/eyebrow";
 import { DisplayText } from "@/components/shared/display-text";
 import { access } from "@/content/auth";
 import { site } from "@/content/home";
-import {
-  SOUNDWAVE_BAR_RADIUS,
-  SOUNDWAVE_BAR_WIDTH,
-  SOUNDWAVE_VIEWBOX,
-  soundwaveBars,
-  type SoundwaveTone,
-} from "@/content/soundwave";
 import { cn } from "@/lib/utils";
-
-// On the ink panel the lab side takes the panel's own text colour.
-const barFill: Record<SoundwaveTone, string> = {
-  laboratorio: "fill-v-on-ink",
-  "encuentro-light": "fill-v-pink",
-  "encuentro-deep": "fill-v-yellow",
-  territorio: "fill-v-olive",
-};
 
 const dotTone = { pink: "bg-v-pink", olive: "bg-v-olive" } as const;
 
@@ -58,26 +43,14 @@ export function AuthAside() {
       </div>
 
       <div className="flex flex-col gap-5">
-        <svg
-          viewBox={`0 0 ${SOUNDWAVE_VIEWBOX.width} ${SOUNDWAVE_VIEWBOX.height}`}
+        {/* On the ink panel the lab side takes the panel's own text colour. */}
+        <SoundwaveGraphic
           role="img"
           aria-label={access.aside.soundwaveLabel}
-          className="bio-soundwave block h-auto w-full max-w-[520px]"
-        >
-          {soundwaveBars.map((bar, index) => (
-            <rect
-              key={bar.x}
-              x={bar.x}
-              y={bar.y}
-              width={SOUNDWAVE_BAR_WIDTH}
-              height={bar.height}
-              rx={SOUNDWAVE_BAR_RADIUS}
-              className={cn("bio-soundwave__bar", barFill[bar.tone])}
-              data-tone={bar.tone}
-              style={{ "--wave-enter": `${(index * 0.012).toFixed(3)}s` } as CSSProperties}
-            />
-          ))}
-        </svg>
+          fills={{ laboratorio: "fill-v-on-ink" }}
+          travel={false}
+          className="h-auto w-full max-w-[520px]"
+        />
         <p className="text-[13px]">
           {access.aside.readOnly}{" "}
           <Link href="/" className="font-semibold text-v-on-ink hover:text-v-on-ink">
