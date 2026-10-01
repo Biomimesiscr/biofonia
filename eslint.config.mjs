@@ -12,6 +12,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Vendored Cojeev registry code (not authored here).
+    "lib/cojeev/**",
+    "lib/cojeev-motion/**",
   ]),
 ]);
 
