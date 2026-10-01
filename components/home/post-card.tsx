@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { dotClass } from "@/components/shared/tone";
+import { CategoryDot } from "@/components/posts/category-dot";
 import { Stat } from "@/components/shared/stat";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
@@ -38,7 +38,7 @@ export function PostCard({
     >
       <Card lift className="flex flex-1 flex-col gap-3.5 rounded-[20px] p-6">
         <span className="flex items-center gap-1.5 text-[13px] font-semibold">
-          <span className={cn("size-2 rounded-full", dotClass[category.tone])} />
+          <CategoryDot tone={category.tone} />
           {category.label}
         </span>
         <span className="text-[19px] leading-[1.3] font-semibold">{title}</span>
