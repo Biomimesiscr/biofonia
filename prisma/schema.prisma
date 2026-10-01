@@ -9,3 +9,124 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+enum UserType {
+  IN_LABORATORY
+  IN_FIELD
+}
+
+model User {
+  id           String  @id @default(cuid())
+  email        String  @unique
+  name         String?
+  biography    String?
+  passwordHash String
+
+  imageId String?
+  image   File?   @relation(fields: [imageId], references: [id])
+
+  userType UserType @default(IN_LABORATORY)
+
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  posts            Post[]
+  postLikes        PostLike[]
+  postComments     PostComment[]
+  postCommentLikes PostCommentLike[]
+  postReports      PostReport[]
+}
+
+model File {
+  id        String   @id @default(cuid())
+  name      String
+  path      String
+  size      Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  users     User[]
+  posts     Post[]   @relation("PostFiles")
+}
+
+model PostCategory {
+  id        String   @id @default(cuid())
+  name      String
+  posts     Post[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Post {
+  id        String   @id @default(cuid())
+  title     String
+  content   String
+  published Boolean  @default(false)
+  authorId  String
+  author    User     @relation(fields: [authorId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+
+  impressionCount Int      @default(0)
+
+  files File[] @relation("PostFiles")
+
+  postCategory   PostCategory?    @relation(fields: [postCategoryId], references: [id])
+  postCategoryId String?
+  postLikes      PostLike[]
+  postComments   PostComment[]
+  postReports    PostReport[]
+}
+
+model PostLike {
+  id        String   @id @default(cuid())
+  postId    String
+  post      Post     @relation(fields: [postId], references: [id])
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+}
+
+model PostReport {
+  id        String           @id @default(cuid())
+  postId    String
+  post      Post             @relation(fields: [postId], references: [id])
+  userId    String
+  user      User             @relation(fields: [userId], references: [id])
+  reasonId  String
+  reason    PostReportReason @relation(fields: [reasonId], references: [id])
+  createdAt DateTime         @default(now())
+}
+
+model PostReportReason {
+  id          String       @id @default(cuid())
+  reason      String
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  postReports PostReport[]
+}
+
+//-------------------------- COMMENTS -----------------------------------
+
+model PostComment {
+  id       String        @id @default(cuid())
+  content  String
+  postId   String
+  post     Post          @relation(fields: [postId], references: [id])
+  userId   String
+  user     User          @relation(fields: [userId], references: [id])
+  fatherId String?
+  father   PostComment?  @relation("PostCommentToFather", fields: [fatherId], references: [id])
+  children PostComment[] @relation("PostCommentToFather")
+
+  createdAt        DateTime          @default(now())
+  postCommentLikes PostCommentLike[]
+}
+
+model PostCommentLike {
+  id            String      @id @default(cuid())
+  postCommentId String
+  postComment   PostComment @relation(fields: [postCommentId], references: [id])
+  userId        String
+  user          User        @relation(fields: [userId], references: [id])
+  createdAt     DateTime    @default(now())
+}
