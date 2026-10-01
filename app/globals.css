@@ -384,3 +384,45 @@
 }
 
   @custom-variant dark (&:where([data-mode="dark"], [data-mode="dark"] *));
+/*
+ * Biofonía palette. The installed Cojeev registry item ships an older palette; the design's
+ * tokens.json (pine / apricot / teal / tangerine / azure) is the source of truth, so the
+ * light-mode Cojeev tokens are re-pointed here. Component code only references tokens.
+ */
+:root,
+:root[data-mode] {
+  --bio-rust: #cb592a;
+  --bio-clay: #c3633e;
+  --bio-hairline: #e2ddd5;
+
+  --v-pink: #eb9969;
+  --v-olive: #61b9b0;
+  --v-blue: #1782fc;
+  --v-yellow: #d57334;
+  --v-pink-deep: #d38a5e;
+  --v-olive-deep: #57a69e;
+  --v-blue-deep: #1575e3;
+  --v-yellow-deep: #c0682f;
+  --v-pink-soft: #fcefe7;
+  --v-olive-soft: #e6f4f2;
+  --v-blue-soft: #daebff;
+  --v-yellow-soft: #f8e9df;
+  --v-ink: #3c5e62;
+  --v-olive-ink: #3c5e62;
+  --v-accent-ink: #984d30;
+  --v-brand: var(--bio-clay);
+  --surface-memory: #f2f9f9;
+  --surface-library: #fdf7f3;
+  --sel-edge: var(--bio-clay);
+  --status-ok-bg: #ecf7f6;
+  --status-ok-ink: #3b716b;
+  --status-warn-bg: #faeee7;
+  --status-warn-ink: #995325;
+  --status-info-bg: #e3f0ff;
+  --status-info-ink: #1264c2;
+}
+
+::selection {
+  background: var(--v-pink);
+  color: var(--ink-fixed);
+}
