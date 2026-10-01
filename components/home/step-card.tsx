@@ -8,7 +8,7 @@ export function StepCard({ number, tone, title, paragraphs }: Step) {
   const badge = solidBadge[tone];
   return (
     <article className="flex basis-[260px] flex-1">
-      <Card className="flex flex-1 flex-col gap-4 rounded-[20px] p-6">
+      <Card lift className="flex flex-1 flex-col gap-4 rounded-[20px] p-6">
         <Badge
           variant={badge.variant}
           className={cn(

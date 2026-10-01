@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { MotionDefaults } from "@/components/motion/motion-defaults";
 import { site } from "@/content/home";
 import "./globals.css";
 
@@ -10,7 +11,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="es" className="h-full antialiased">
-      <body className="flex min-h-full flex-col">{children}</body>
+      <body className="flex min-h-full flex-col">
+        <MotionDefaults />
+        {children}
+      </body>
     </html>
   );
 }

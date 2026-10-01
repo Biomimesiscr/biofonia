@@ -36,7 +36,7 @@ export function PostCard({
       href={href}
       className="flex basis-[300px] flex-1 text-v-text no-underline hover:text-v-text"
     >
-      <Card className="flex flex-1 flex-col gap-3.5 rounded-[20px] p-6">
+      <Card lift className="flex flex-1 flex-col gap-3.5 rounded-[20px] p-6">
         <span className="flex items-center gap-1.5 text-[13px] font-semibold">
           <span className={cn("size-2 rounded-full", dotClass[category.tone])} />
           {category.label}

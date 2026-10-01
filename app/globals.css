@@ -426,3 +426,28 @@
   background: var(--v-pink);
   color: var(--ink-fixed);
 }
+
+/* Soundwave: bars rise in on load, then breathe in a wave that travels from
+   laboratorio (left) and territorio (right) toward the encuentro in the centre. */
+.bio-soundwave__bar {
+  transform-box: fill-box;
+  transform-origin: center;
+  --wave-min: 0.62;
+  animation:
+    bio-wave-enter 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) var(--wave-enter, 0s) both,
+    bio-wave 2.4s ease-in-out calc(var(--wave-enter, 0s) + 0.7s + var(--wave-delay, 0s)) infinite;
+}
+.bio-soundwave__bar:is([data-tone="encuentro-light"], [data-tone="encuentro-deep"]) {
+  --wave-min: 0.45;
+}
+@keyframes bio-wave-enter {
+  from { transform: scaleY(0.04); opacity: 0; }
+  to { transform: scaleY(1); opacity: 1; }
+}
+@keyframes bio-wave {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(var(--wave-min)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bio-soundwave__bar { animation: none; }
+}

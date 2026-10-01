@@ -1,3 +1,4 @@
+import type * as React from "react";
 import { Container } from "@/components/layout/container";
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
@@ -17,6 +18,19 @@ const barFill: Record<SoundwaveTone, string> = {
   territorio: "fill-v-olive",
 };
 
+/** Seconds for one breath of a bar; the wave travels from both edges toward the centre. */
+const WAVE_PERIOD = 2.4;
+const center = (soundwaveBars.length - 1) / 2;
+
+/** Edges start breathing first and the centre last, so the two waves travel inward and meet. */
+function barStyle(index: number): React.CSSProperties {
+  const distance = Math.abs(index - center) / center;
+  return {
+    "--wave-delay": `${((1 - distance) * WAVE_PERIOD * 0.5).toFixed(2)}s`,
+    "--wave-enter": `${(index * 0.012).toFixed(3)}s`,
+  } as React.CSSProperties;
+}
+
 export function Soundwave() {
   return (
     <Container as="section" aria-label={soundwave.sectionLabel} className="pb-16">
@@ -25,9 +39,9 @@ export function Soundwave() {
           viewBox={`0 0 ${SOUNDWAVE_VIEWBOX.width} ${SOUNDWAVE_VIEWBOX.height}`}
           role="img"
           aria-label={soundwave.ariaLabel}
-          className="block h-auto w-full"
+          className="bio-soundwave block h-auto w-full"
         >
-          {soundwaveBars.map((bar) => (
+          {soundwaveBars.map((bar, index) => (
             <rect
               key={bar.x}
               x={bar.x}
@@ -35,7 +49,9 @@ export function Soundwave() {
               width={SOUNDWAVE_BAR_WIDTH}
               height={bar.height}
               rx={SOUNDWAVE_BAR_RADIUS}
-              className={barFill[bar.tone]}
+              className={cn("bio-soundwave__bar", barFill[bar.tone])}
+              data-tone={bar.tone}
+              style={barStyle(index)}
             />
           ))}
         </svg>
