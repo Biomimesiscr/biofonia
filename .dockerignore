@@ -1,0 +1,15 @@
+.git
+.github
+.agents
+.claude
+.next
+node_modules
+generated
+*.tsbuildinfo
+next-env.d.ts
+.env*
+!.example.env
+Dockerfile
+.dockerignore
+README.md
+docs
