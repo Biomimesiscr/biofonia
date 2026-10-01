@@ -2,6 +2,7 @@ import { ZodError, z } from "zod";
 import ConflictError from "@/domain/core/errors/ConflictError";
 import DataError from "@/domain/core/errors/DataError";
 import NotFoundError from "@/domain/core/errors/NotFoundError";
+import UnauthorizedError from "@/domain/core/errors/UnauthorizedError";
 import HttpError from "./HttpError";
 
 export interface ErrorBody {
@@ -35,6 +36,7 @@ export function toErrorResponse(error: unknown): Response {
   if (error instanceof DataError) return json(422, error.message);
   if (error instanceof NotFoundError) return json(404, error.message);
   if (error instanceof ConflictError) return json(409, error.message);
+  if (error instanceof UnauthorizedError) return json(401, error.message);
 
   console.error(error);
   return json(500, "Internal server error");
