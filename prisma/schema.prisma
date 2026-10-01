@@ -20,7 +20,11 @@ model User {
   email        String  @unique
   name         String?
   biography    String?
-  passwordHash String
+  /// Null for accounts created through Google.
+  passwordHash String?
+  googleId     String? @unique
+  /// Set once the user finishes onboarding (user type + biography).
+  onboardedAt  DateTime?
 
   imageId String?
   image   File?   @relation(fields: [imageId], references: [id])
@@ -34,6 +38,19 @@ model User {
   postComments     PostComment[]
   postCommentLikes PostCommentLike[]
   postReports      PostReport[]
+  sessions         Session[]
+}
+
+/// A login session. `id` is the SHA-256 of the token stored in the cookie,
+/// so a leaked database row cannot be replayed as a cookie.
+model Session {
+  id        String   @id
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@index([userId])
 }
 
 model File {

@@ -26,6 +26,8 @@ export const site = {
   statusLabel: "Próximamente",
   loginLabel: "Iniciar sesión",
   loginHref: "/acceso",
+  logoutLabel: "Cerrar sesión",
+  completeProfileLabel: "Completa tu perfil",
   forumHref: "/foro",
 } as const;
 
