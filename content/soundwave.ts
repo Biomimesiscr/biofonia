@@ -1,0 +1,88 @@
+export type SoundwaveTone = "laboratorio" | "encuentro-light" | "encuentro-deep" | "territorio";
+
+export type SoundwaveBar = {
+  x: number;
+  y: number;
+  height: number;
+  tone: SoundwaveTone;
+};
+
+export const SOUNDWAVE_VIEWBOX = { width: 1200, height: 220 } as const;
+export const SOUNDWAVE_BAR_WIDTH = 6;
+export const SOUNDWAVE_BAR_RADIUS = 3;
+
+/** The 72 bars of the design's soundwave: lab (left), meeting (middle), territory (right). */
+export const soundwaveBars: readonly SoundwaveBar[] = [
+  { x: 5.3, y: 85.2, height: 49.6, tone: "laboratorio" },
+  { x: 22.0, y: 74.2, height: 71.5, tone: "laboratorio" },
+  { x: 38.7, y: 66.7, height: 86.5, tone: "laboratorio" },
+  { x: 55.3, y: 64.6, height: 90.7, tone: "laboratorio" },
+  { x: 72.0, y: 67.4, height: 85.2, tone: "laboratorio" },
+  { x: 88.7, y: 75.6, height: 68.8, tone: "laboratorio" },
+  { x: 105.3, y: 81.3, height: 57.5, tone: "laboratorio" },
+  { x: 122.0, y: 71.9, height: 76.2, tone: "laboratorio" },
+  { x: 138.7, y: 64.5, height: 91.0, tone: "laboratorio" },
+  { x: 155.3, y: 63.1, height: 93.7, tone: "laboratorio" },
+  { x: 172.0, y: 70.4, height: 79.3, tone: "laboratorio" },
+  { x: 188.7, y: 81.8, height: 56.4, tone: "laboratorio" },
+  { x: 205.3, y: 78.5, height: 63.0, tone: "laboratorio" },
+  { x: 222.0, y: 70.4, height: 79.2, tone: "laboratorio" },
+  { x: 238.7, y: 68.6, height: 82.8, tone: "laboratorio" },
+  { x: 255.3, y: 69.4, height: 81.3, tone: "laboratorio" },
+  { x: 272.0, y: 73.4, height: 73.3, tone: "laboratorio" },
+  { x: 288.7, y: 76.7, height: 66.7, tone: "laboratorio" },
+  { x: 305.3, y: 68.4, height: 83.1, tone: "laboratorio" },
+  { x: 322.0, y: 64.3, height: 91.5, tone: "laboratorio" },
+  { x: 338.7, y: 65.0, height: 89.9, tone: "laboratorio" },
+  { x: 355.3, y: 61.8, height: 96.4, tone: "laboratorio" },
+  { x: 372.0, y: 60.6, height: 98.8, tone: "laboratorio" },
+  { x: 388.7, y: 70.7, height: 78.7, tone: "laboratorio" },
+  { x: 405.3, y: 68.9, height: 82.2, tone: "laboratorio" },
+  { x: 422.0, y: 60.2, height: 99.5, tone: "laboratorio" },
+  { x: 438.7, y: 55.1, height: 109.7, tone: "laboratorio" },
+  { x: 455.3, y: 58.4, height: 103.2, tone: "laboratorio" },
+  { x: 472.0, y: 68.4, height: 83.2, tone: "laboratorio" },
+  { x: 488.7, y: 65.5, height: 89.0, tone: "laboratorio" },
+  { x: 505.3, y: 43.4, height: 133.2, tone: "encuentro-light" },
+  { x: 522.0, y: 28.6, height: 162.7, tone: "encuentro-deep" },
+  { x: 538.7, y: 27.6, height: 164.8, tone: "encuentro-light" },
+  { x: 555.3, y: 53.2, height: 113.5, tone: "encuentro-deep" },
+  { x: 572.0, y: 48.3, height: 123.3, tone: "encuentro-light" },
+  { x: 588.7, y: 27.1, height: 165.7, tone: "encuentro-deep" },
+  { x: 605.3, y: 17.7, height: 184.6, tone: "encuentro-light" },
+  { x: 622.0, y: 35.8, height: 148.5, tone: "encuentro-deep" },
+  { x: 638.7, y: 46.5, height: 126.9, tone: "encuentro-light" },
+  { x: 655.3, y: 44.7, height: 130.5, tone: "encuentro-deep" },
+  { x: 672.0, y: 61.6, height: 96.8, tone: "encuentro-light" },
+  { x: 688.7, y: 65.2, height: 89.5, tone: "encuentro-deep" },
+  { x: 705.3, y: 57.6, height: 104.8, tone: "territorio" },
+  { x: 722.0, y: 50.3, height: 119.4, tone: "territorio" },
+  { x: 738.7, y: 48.0, height: 124.1, tone: "territorio" },
+  { x: 755.3, y: 50.5, height: 119.0, tone: "territorio" },
+  { x: 772.0, y: 68.2, height: 83.6, tone: "territorio" },
+  { x: 788.7, y: 60.2, height: 99.6, tone: "territorio" },
+  { x: 805.3, y: 44.8, height: 130.5, tone: "territorio" },
+  { x: 822.0, y: 48.9, height: 122.2, tone: "territorio" },
+  { x: 838.7, y: 59.5, height: 101.0, tone: "territorio" },
+  { x: 855.3, y: 84.5, height: 51.0, tone: "territorio" },
+  { x: 872.0, y: 71.7, height: 76.7, tone: "territorio" },
+  { x: 888.7, y: 68.0, height: 83.9, tone: "territorio" },
+  { x: 905.3, y: 80.0, height: 59.9, tone: "territorio" },
+  { x: 922.0, y: 81.2, height: 57.7, tone: "territorio" },
+  { x: 938.7, y: 83.1, height: 53.9, tone: "territorio" },
+  { x: 955.3, y: 69.5, height: 81.0, tone: "territorio" },
+  { x: 972.0, y: 61.3, height: 97.4, tone: "territorio" },
+  { x: 988.7, y: 69.2, height: 81.6, tone: "territorio" },
+  { x: 1005.3, y: 74.1, height: 71.7, tone: "territorio" },
+  { x: 1022.0, y: 59.8, height: 100.4, tone: "territorio" },
+  { x: 1038.7, y: 50.0, height: 120.1, tone: "territorio" },
+  { x: 1055.3, y: 61.9, height: 96.3, tone: "territorio" },
+  { x: 1072.0, y: 81.5, height: 57.1, tone: "territorio" },
+  { x: 1088.7, y: 71.8, height: 76.4, tone: "territorio" },
+  { x: 1105.3, y: 64.4, height: 91.2, tone: "territorio" },
+  { x: 1122.0, y: 71.8, height: 76.4, tone: "territorio" },
+  { x: 1138.7, y: 85.9, height: 48.2, tone: "territorio" },
+  { x: 1155.3, y: 83.3, height: 53.4, tone: "territorio" },
+  { x: 1172.0, y: 78.9, height: 62.1, tone: "territorio" },
+  { x: 1188.7, y: 62.4, height: 95.3, tone: "territorio" },
+];
