@@ -33,3 +33,9 @@ export function initials(name: string): string {
     .map((word) => word[0]!.toUpperCase())
     .join("");
 }
+
+/** The text cut to `length` characters at most, with an ellipsis when cut. */
+export function excerpt(text: string, length = 220): string {
+  const trimmed = text.trim();
+  return trimmed.length > length ? `${trimmed.slice(0, length).trimEnd()}…` : trimmed;
+}

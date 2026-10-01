@@ -5,21 +5,15 @@ import { Badge, BadgeIndicator } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Icon } from "@/components/ui/icon";
-import { onboarding } from "@/content/auth";
 import { profile } from "@/content/profile";
 import { cn } from "@/lib/utils";
+import { roleFor } from "./role-style";
 import type { ProfileData } from "./types";
-
-const roleStyle = {
-  pink: { badge: "pink-soft", avatar: "pink", dot: "text-v-pink", text: "text-v-accent-ink" },
-  olive: { badge: "olive-soft", avatar: "olive", dot: "text-v-olive", text: "text-v-olive-ink" },
-} as const;
 
 type ProfileCardProps = { profile: ProfileData; isOwner: boolean };
 
 export function ProfileCard({ profile: user, isOwner }: ProfileCardProps) {
-  const role = onboarding.role.options.find((option) => option.value === user.userType)!;
-  const style = roleStyle[role.tone];
+  const { role, style } = roleFor(user.userType);
 
   return (
     <Card className="flex flex-col gap-5 overflow-visible rounded-[28px] p-6">

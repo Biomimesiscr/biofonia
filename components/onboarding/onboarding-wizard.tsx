@@ -2,8 +2,9 @@
 
 import { useActionState, useState } from "react";
 import { completeOnboarding } from "@/app/actions/onboarding";
-import { FieldError, FormMessage } from "@/components/auth/form-field";
 import { Logo } from "@/components/brand/logo";
+import { FieldError, FormMessage, TextareaField } from "@/components/forms/form-field";
+import { ChoiceCard } from "@/components/shared/choice-card";
 import { Eyebrow } from "@/components/shared/eyebrow";
 import { DisplayText } from "@/components/shared/display-text";
 import { Button } from "@/components/ui/button";
@@ -66,12 +67,10 @@ export function OnboardingWizard() {
               {onboarding.role.options.map((option) => {
                 const checked = role === option.value;
                 return (
-                  <label
+                  <ChoiceCard
                     key={option.value}
-                    className={cn(
-                      "flex flex-[1_1_240px] cursor-pointer flex-col gap-4 rounded-[20px] border-2 p-6 focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-v-brand",
-                      checked ? "border-v-ink bg-v-pink-soft" : "border-v-border bg-v-paper",
-                    )}
+                    checked={checked}
+                    className="flex-[1_1_240px] flex-col gap-4 p-6"
                   >
                     <div className="flex items-center justify-between gap-3">
                       <span
@@ -114,7 +113,7 @@ export function OnboardingWizard() {
                     </span>
                     <span className="text-[21px] leading-[1.2] font-semibold">{option.title}</span>
                     <span className="text-v-text-2">{option.text}</span>
-                  </label>
+                  </ChoiceCard>
                 );
               })}
             </fieldset>
@@ -134,30 +133,19 @@ export function OnboardingWizard() {
               </DisplayText>
               <p className="text-[17px] leading-[1.55] text-v-text-2">{onboarding.bio.lead}</p>
             </div>
-            <div className="flex flex-col gap-2">
-              <label htmlFor="bio" className="text-[14px] font-medium">
-                {onboarding.bio.label}
-              </label>
-              <textarea
-                id="bio"
-                name="biography"
-                rows={6}
-                maxLength={onboarding.bio.maxLength}
-                value={bio}
-                onChange={(event) => setBio(event.target.value)}
-                placeholder={selected?.bioPlaceholder}
-                aria-invalid={bioErrors ? true : undefined}
-                aria-describedby={bioErrors ? "bio-help bio-error" : "bio-help"}
-                className="w-full resize-y rounded-[20px] border border-v-edge bg-v-paper px-5 py-4 text-[15px] leading-normal text-v-text placeholder:text-v-text-3 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-v-brand aria-invalid:border-v-danger"
-              />
-              <div className="flex justify-between gap-3 text-[13px] text-v-text-3">
-                <span id="bio-help">{onboarding.bio.help}</span>
-                <span className="tabular-nums">
-                  {bio.length} / {onboarding.bio.maxLength}
-                </span>
-              </div>
-              {bioErrors && <FieldError id="bio-error" errors={bioErrors} />}
-            </div>
+            <TextareaField
+              id="bio"
+              name="biography"
+              label={onboarding.bio.label}
+              hint={onboarding.bio.help}
+              errors={bioErrors}
+              showCount
+              rows={6}
+              maxLength={onboarding.bio.maxLength}
+              value={bio}
+              onChange={(event) => setBio(event.target.value)}
+              placeholder={selected?.bioPlaceholder}
+            />
             <div className="flex justify-between gap-3">
               <Button type="button" variant="outline" size="lg" onClick={() => setStep(1)}>
                 {onboarding.back}

@@ -1,3 +1,6 @@
+import { PostContent } from "../valueobjects/PostContent.vo";
+import { PostTitle } from "../valueobjects/PostTitle.vo";
+
 export class Post {
   private props: PostProps;
 
@@ -5,12 +8,31 @@ export class Post {
     this.props = props;
   }
 
-  /** Rebuilds a persisted post (used by infrastructure mappers). */
-  static restore(props: PostProps): Post {
+  /** Builds a new post that has not been persisted yet (no id). */
+  static create(props: NewPostProps): Post {
+    const now = new Date();
+    return new Post({
+      id: null,
+      title: PostTitle.create(props.title).value,
+      content: PostContent.create(props.content).value,
+      published: props.published,
+      authorId: props.authorId,
+      postCategoryId: props.postCategoryId,
+      impressionCount: 0,
+      createdAt: now,
+      updatedAt: now,
+    });
+  }
+
+  /**
+   * Rebuilds a persisted post (used by infrastructure mappers). Not re-validated:
+   * rows written before a rule existed must still load.
+   */
+  static restore(props: PersistedPostProps): Post {
     return new Post({ ...props });
   }
 
-  get id(): string {
+  get id(): string | null {
     return this.props.id;
   }
 
@@ -48,7 +70,7 @@ export class Post {
 }
 
 export interface PostProps {
-  id: string;
+  id: string | null;
   title: string;
   content: string;
   published: boolean;
@@ -57,4 +79,16 @@ export interface PostProps {
   impressionCount: number;
   createdAt: Date;
   updatedAt: Date;
+}
+
+export interface PersistedPostProps extends PostProps {
+  id: string;
+}
+
+export interface NewPostProps {
+  title: string;
+  content: string;
+  published: boolean;
+  authorId: string;
+  postCategoryId: string;
 }

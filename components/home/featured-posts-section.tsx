@@ -31,7 +31,6 @@ export function FeaturedPostsSection() {
           <PostCard
             key={post.title}
             {...post}
-            audienceLabel={featuredPosts.audienceLabels[post.audience]}
             votesLabel={featuredPosts.votesLabel}
             commentsLabel={featuredPosts.commentsLabel}
           />

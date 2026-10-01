@@ -4,10 +4,8 @@ import type { User } from "@/domain/user/entities/User";
 import type { AuthorPost } from "@/domain/post/readmodels/AuthorPost";
 import type { PostCategory } from "@/domain/postCategory/entities/PostCategory";
 import { categoryTone } from "@/content/forum";
-import { formatMonthYear, formatRelativeDate, initials } from "@/lib/format";
+import { excerpt, formatMonthYear, formatRelativeDate, initials } from "@/lib/format";
 import type { CategoryOption, ProfileData, ProfilePostItem } from "./types";
-
-const EXCERPT_LENGTH = 220;
 
 export function toProfileData(user: User, posts: readonly AuthorPost[]): ProfileData {
   const name = user.name ?? user.email;
@@ -24,11 +22,10 @@ export function toProfileData(user: User, posts: readonly AuthorPost[]): Profile
 }
 
 export function toProfilePostItem({ post, category, likeCount, commentCount }: AuthorPost): ProfilePostItem {
-  const content = post.content.trim();
   return {
-    id: post.id,
+    id: post.id!,
     title: post.title,
-    excerpt: content.length > EXCERPT_LENGTH ? `${content.slice(0, EXCERPT_LENGTH).trimEnd()}…` : content,
+    excerpt: excerpt(post.content),
     published: post.published,
     category: category ? { ...category, tone: categoryTone(category.name) } : null,
     date: formatRelativeDate(post.updatedAt),

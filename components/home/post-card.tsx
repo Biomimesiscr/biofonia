@@ -1,20 +1,13 @@
 import Link from "next/link";
 import { CategoryDot } from "@/components/posts/category-dot";
+import { AudienceBadge } from "@/components/shared/audience-badge";
 import { Stat } from "@/components/shared/stat";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { cn } from "@/lib/utils";
-import type { Audience, Post } from "@/content/home";
-
-const audienceBadge: Record<Audience, string> = {
-  laboratorio: "bg-surface-memory text-v-ink",
-  territorio: "bg-surface-library text-v-accent-ink",
-};
+import type { Post } from "@/content/home";
 
 type PostCardProps = Post & {
-  audienceLabel: string;
   votesLabel: string;
   commentsLabel: string;
 };
@@ -25,7 +18,6 @@ export function PostCard({
   title,
   author,
   audience,
-  audienceLabel,
   votes,
   comments,
   votesLabel,
@@ -50,15 +42,7 @@ export function PostCard({
             <AvatarFallback>{author.initials}</AvatarFallback>
           </Avatar>
           {author.name}
-          <Badge
-            variant="default"
-            className={cn(
-              "h-auto px-2 py-0.5 text-xs font-semibold",
-              audienceBadge[audience],
-            )}
-          >
-            {audienceLabel}
-          </Badge>
+          <AudienceBadge audience={audience} />
         </span>
         <span className="mt-auto flex flex-col">
           <Separator decorative className="mt-0 mb-0 mx-0 [background:var(--bio-hairline)]" />
