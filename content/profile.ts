@@ -1,0 +1,26 @@
+export const profile = {
+  metaTitle: "Mi perfil · Biofonía",
+  metaTitleOf: (name: string) => `${name} · Biofonía`,
+  avatarLabel: (name: string) => `Foto de perfil de ${name}`,
+  memberSince: (monthYear: string) => `En Biofonía desde ${monthYear}`,
+  editProfile: "Editar perfil",
+  editProfileSoon: "Próximamente",
+  stats: {
+    published: "Publicaciones",
+    votes: "Votos recibidos",
+  },
+  posts: {
+    ownTitle: "Mis publicaciones",
+    title: "Publicaciones",
+    viewsLabel: "Vista de publicaciones",
+    views: { published: "Publicadas", drafts: "Borradores" },
+    searchLabel: "Buscar en las publicaciones",
+    searchPlaceholder: "Buscar en las publicaciones",
+    categoriesLabel: "Filtrar por categoría",
+    allCategories: "Todas",
+    uncategorized: "Sin categoría",
+    draft: "Borrador · Sin publicar",
+    empty: "No hay publicaciones que coincidan con este filtro.",
+    noPosts: "Todavía no hay publicaciones.",
+  },
+} as const;

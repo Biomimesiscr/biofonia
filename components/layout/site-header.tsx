@@ -18,7 +18,9 @@ export async function SiteHeader() {
         {user ? (
           <>
             {user.isOnboarded ? (
-              <span className="text-[14px] font-medium">{user.name}</span>
+              <Link href="/perfil" className="text-[14px] font-medium">
+                {user.name}
+              </Link>
             ) : (
               <Link href="/bienvenida" className="text-[14px] font-medium">
                 {site.completeProfileLabel}
