@@ -5,7 +5,7 @@ import { login } from "@/app/actions/auth";
 import { Button } from "@/components/ui/button";
 import { DisplayText } from "@/components/shared/display-text";
 import { access } from "@/content/auth";
-import { FormField, FormMessage } from "./form-field";
+import { FormField, FormMessage } from "@/components/forms/form-field";
 import { Divider, GoogleButton } from "./google-button";
 
 export function LoginForm({ onSwitch, notice }: { onSwitch: () => void; notice?: string }) {

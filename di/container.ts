@@ -1,6 +1,7 @@
 import "server-only";
 
 import { AuthService } from "@/application/auth/services/implementations/AuthService";
+import { PostService } from "@/application/post/services/implementations/PostService";
 import { PostCategoryService } from "@/application/postCategory/services/implementations/PostCategoryService";
 import { UserService } from "@/application/user/services/implementations/UserService";
 import { CryptoSessionTokenService } from "@/infrastructure/auth/CryptoSessionTokenService";
@@ -9,7 +10,9 @@ import {
   googleOAuthConfigFromEnv,
 } from "@/infrastructure/auth/GoogleOAuthIdentityProvider";
 import { ScryptPasswordHasher } from "@/infrastructure/auth/ScryptPasswordHasher";
+import { PrismaPostRepository } from "@/infrastructure/post/repositories/PrismaPostRepository";
 import { PrismaPostCategoryRepository } from "@/infrastructure/postCategory/repositories/PrismaPostCategoryRepository";
+import { PrismaPostLikeRepository } from "@/infrastructure/postLike/repositories/PrismaPostLikeRepository";
 import { PrismaSessionRepository } from "@/infrastructure/session/repositories/PrismaSessionRepository";
 import { PrismaUserRepository } from "@/infrastructure/user/repositories/PrismaUserRepository";
 import GoogleAuthController from "@/presentation/auth/controllers/googleAuth.controller";
@@ -25,6 +28,8 @@ import PostCategoryController from "@/presentation/postCategory/controllers/post
 
 // ---------------------------- Repositories ----------------------------
 const postCategoryRepository = new PrismaPostCategoryRepository();
+const postRepository = new PrismaPostRepository();
+const postLikeRepository = new PrismaPostLikeRepository();
 const userRepository = new PrismaUserRepository();
 const sessionRepository = new PrismaSessionRepository();
 
@@ -36,6 +41,7 @@ const googleIdentityProvider = new GoogleOAuthIdentityProvider(googleOAuthConfig
 
 // ------------------------------ Services -------------------------------
 export const postCategoryService = new PostCategoryService(postCategoryRepository);
+export const postService = new PostService(postRepository, postCategoryRepository, postLikeRepository);
 export const userService = new UserService(userRepository);
 export const authService = new AuthService(
   userRepository,

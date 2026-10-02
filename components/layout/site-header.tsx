@@ -4,7 +4,9 @@ import { Logo } from "@/components/brand/logo";
 import { Container } from "@/components/layout/container";
 import { StatusPill } from "@/components/shared/status-pill";
 import { Button } from "@/components/ui/button";
+import { Icon } from "@/components/ui/icon";
 import { site } from "@/content/home";
+import { newPost } from "@/content/post";
 import { session } from "@/di/container";
 
 export async function SiteHeader() {
@@ -18,7 +20,17 @@ export async function SiteHeader() {
         {user ? (
           <>
             {user.isOnboarded ? (
-              <span className="text-[14px] font-medium">{user.name}</span>
+              <>
+                <Button asChild className="h-11 px-5">
+                  <Link href={newPost.href} className="no-underline">
+                    <Icon name="plus" className="size-[18px]" />
+                    {newPost.navLabel}
+                  </Link>
+                </Button>
+                <Link href="/perfil" className="text-[14px] font-medium">
+                  {user.name}
+                </Link>
+              </>
             ) : (
               <Link href="/bienvenida" className="text-[14px] font-medium">
                 {site.completeProfileLabel}
