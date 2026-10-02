@@ -10,7 +10,7 @@ const dotTone = { pink: "bg-v-pink", olive: "bg-v-olive" } as const;
 
 export function AuthAside() {
   return (
-    <aside className="flex flex-[1_1_440px] flex-col justify-between gap-12 bg-v-ink p-[clamp(24px,4vw,48px)] text-v-on-ink">
+    <aside className="flex flex-[1_1_440px] flex-col justify-between gap-6 bg-v-ink md:gap-12 p-[clamp(24px,4vw,48px)] text-v-on-ink">
       <Link
         href="/"
         className="flex min-h-11 items-center gap-3 self-start text-v-on-ink no-underline hover:text-v-on-ink"
@@ -26,13 +26,13 @@ export function AuthAside() {
         </span>
       </Link>
 
-      <div className="flex max-w-[520px] flex-col gap-6">
+      <div className="flex max-w-[520px] flex-col gap-4 md:gap-6">
         <Eyebrow tone="inverse">{access.aside.eyebrow}</Eyebrow>
-        <DisplayText as="h1" size="xl" className="text-[clamp(36px,4vw,44px)] leading-[1.05]">
+        <DisplayText as="h1" size="xl" className="text-[clamp(32px,4vw,44px)] leading-[1.05]">
           {access.aside.title}
         </DisplayText>
-        <p className="text-[17px] leading-[1.55]">{access.aside.lead}</p>
-        <ul className="flex flex-col gap-3">
+        <p className="text-[15px] leading-[1.55] md:text-[17px]">{access.aside.lead}</p>
+        <ul className="flex flex-col gap-3 max-md:hidden">
           {access.aside.benefits.map((benefit) => (
             <li key={benefit.text} className="flex items-center gap-3">
               <span className={cn("size-2 shrink-0 rounded-full", dotTone[benefit.tone])} />
@@ -42,7 +42,7 @@ export function AuthAside() {
         </ul>
       </div>
 
-      <div className="flex flex-col gap-5">
+      <div className="flex flex-col gap-5 max-md:hidden">
         {/* On the ink panel the lab side takes the panel's own text colour. */}
         <SoundwaveGraphic
           role="img"

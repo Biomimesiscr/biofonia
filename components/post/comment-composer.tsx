@@ -90,13 +90,13 @@ export function CommentComposer({
         <p id={hintId} className={cn("text-[13px]", error ? "font-medium text-v-danger-ink" : "text-v-text-3")}>
           {error ?? help}
         </p>
-        <div className="flex gap-2">
+        <div className="flex gap-2 max-sm:w-full">
           {onCancel && (
-            <Button type="button" variant="outline" className="h-10 px-4" onClick={onCancel}>
+            <Button type="button" variant="outline" className="h-10 px-4 max-sm:flex-1" onClick={onCancel}>
               {cancelLabel}
             </Button>
           )}
-          <Button type="submit" className="h-10 px-5" disabled={!content.trim() || hasLink} loading={pending}>
+          <Button type="submit" className="h-10 px-5 max-sm:flex-1" disabled={!content.trim() || hasLink} loading={pending}>
             {submitLabel}
           </Button>
         </div>

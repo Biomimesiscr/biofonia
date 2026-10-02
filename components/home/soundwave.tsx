@@ -6,8 +6,8 @@ import { soundwave } from "@/content/home";
 
 export function Soundwave() {
   return (
-    <Container as="section" aria-label={soundwave.sectionLabel} className="pb-16">
-      <Card className="flex flex-col gap-6 rounded-[40px] px-8 pt-10 pb-8">
+    <Container as="section" aria-label={soundwave.sectionLabel} className="pb-10 sm:pb-16">
+      <Card className="flex flex-col gap-6 rounded-[28px] px-5 pt-8 pb-6 sm:rounded-[40px] sm:px-8 sm:pt-10 sm:pb-8">
         <SoundwaveGraphic role="img" aria-label={soundwave.ariaLabel} className="h-auto w-full" />
         <div className="flex flex-wrap items-center justify-between gap-4 text-[13px] font-medium">
           {soundwave.legend.map((item) => (

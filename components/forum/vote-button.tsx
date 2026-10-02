@@ -13,7 +13,7 @@ export function VoteButton({ postId, votes, voted }: VoteButtonProps) {
   const [vote, toggle] = useOptimisticToggle({ active: voted, count: votes }, () => toggleVote(postId));
 
   return (
-    <div className="flex w-13 shrink-0 flex-col items-center gap-0.5">
+    <div className="flex w-11 shrink-0 sm:w-13 flex-col items-center gap-0.5">
       <button
         type="button"
         aria-pressed={vote.active}

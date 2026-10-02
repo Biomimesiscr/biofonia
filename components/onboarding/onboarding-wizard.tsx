@@ -29,14 +29,14 @@ export function OnboardingWizard() {
 
   return (
     <div className="flex min-h-screen flex-col bg-v-canvas text-v-text">
-      <header className="mx-auto flex w-full max-w-[1200px] flex-wrap items-center justify-between gap-4 p-6">
+      <header className="mx-auto flex w-full max-w-[1200px] flex-wrap items-center justify-between gap-4 px-6 py-4 sm:p-6">
         <Logo name={site.name} />
         <span className="text-[13px] font-medium text-v-text-2" aria-live="polite">
           {onboarding.stepLabel(step, TOTAL_STEPS)}
         </span>
       </header>
 
-      <main className="mx-auto flex w-full max-w-[640px] flex-1 flex-col gap-8 px-6 pt-8 pb-16">
+      <main className="mx-auto flex w-full max-w-[640px] flex-1 flex-col gap-6 px-6 pt-4 pb-12 sm:gap-8 sm:pt-8 sm:pb-16">
         <div aria-hidden="true" className="flex gap-2">
           {Array.from({ length: TOTAL_STEPS }, (_, index) => (
             <span
@@ -60,7 +60,7 @@ export function OnboardingWizard() {
             <RoleChoice legend={onboarding.role.legend} value={role} onChange={setRole} />
             {roleErrors && <FieldError id="role-error" errors={roleErrors} />}
             <div className="flex justify-end">
-              <Button type="button" size="lg" disabled={!role} onClick={() => setStep(2)}>
+              <Button type="button" size="lg" className="max-sm:w-full" disabled={!role} onClick={() => setStep(2)}>
                 {onboarding.next}
               </Button>
             </div>
@@ -88,10 +88,10 @@ export function OnboardingWizard() {
               placeholder={selected?.bioPlaceholder}
             />
             <div className="flex justify-between gap-3">
-              <Button type="button" variant="outline" size="lg" onClick={() => setStep(1)}>
+              <Button type="button" variant="outline" size="lg" className="max-sm:flex-1" onClick={() => setStep(1)}>
                 {onboarding.back}
               </Button>
-              <Button type="submit" size="lg" disabled={!bio.trim()} loading={pending}>
+              <Button type="submit" size="lg" className="max-sm:flex-1" disabled={!bio.trim()} loading={pending}>
                 {onboarding.finish}
               </Button>
             </div>

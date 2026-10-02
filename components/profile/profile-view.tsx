@@ -21,8 +21,8 @@ export function ProfileView({ profile, posts, categories, isOwner }: ProfileView
       <SiteHeader />
       <main className="flex-1">
         <ProfileBanner />
-        <Container className="flex flex-wrap items-start gap-10 pb-20">
-          <aside className="-mt-[72px] flex max-w-[380px] flex-[1_1_320px] flex-col gap-6">
+        <Container className="flex flex-wrap items-start gap-6 pb-16 sm:pb-20 lg:gap-10">
+          <aside className="-mt-[72px] flex flex-[1_1_320px] flex-col gap-6 lg:max-w-[380px]">
             <ProfileCard profile={profile} isOwner={isOwner} />
             <ProfileStats profile={profile} />
           </aside>

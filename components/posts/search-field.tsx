@@ -17,7 +17,7 @@ export function SearchField({ label, className, ...props }: SearchFieldProps) {
       <span className="sr-only">{label}</span>
       <input
         type="search"
-        className="h-full min-w-0 flex-1 bg-transparent text-[15px] text-v-text outline-none placeholder:text-v-text-3"
+        className="h-full min-w-0 flex-1 bg-transparent text-[16px] text-v-text sm:text-[15px] outline-none placeholder:text-v-text-3"
         {...props}
       />
     </label>

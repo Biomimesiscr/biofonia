@@ -57,7 +57,7 @@ export function PostActions({ postId, votes, voted, comments, reasons }: PostAct
           <Icon name="bookmark" className="size-[18px]" />
           {copy.save}
         </Button>
-        <span id={saveHintId} className="text-[12px] text-v-text-3">
+        <span id={saveHintId} className="text-[12px] text-v-text-3 max-sm:sr-only">
           {copy.saveSoon}
         </span>
       </span>
@@ -67,7 +67,7 @@ export function PostActions({ postId, votes, voted, comments, reasons }: PostAct
         {copy.share}
       </Button>
 
-      <ReportDialog postId={postId} reasons={reasons} className={`${pillClass} ml-auto text-v-text-2`} />
+      <ReportDialog postId={postId} reasons={reasons} className={`${pillClass} text-v-text-2 sm:ml-auto`} />
     </div>
   );
 }

@@ -30,7 +30,7 @@ export function CommentCard({ postId, comment, replying, onReply, onCancelReply,
   return (
     <Card
       className={cn(
-        "flex flex-col gap-3 rounded-[20px] p-5 [box-shadow:inset_0_0_0_2px_transparent]",
+        "flex flex-col gap-3 rounded-[20px] p-4 sm:p-5 [box-shadow:inset_0_0_0_2px_transparent]",
         replying && "[box-shadow:inset_0_0_0_2px_var(--v-pink)]",
       )}
     >
@@ -48,7 +48,7 @@ export function CommentCard({ postId, comment, replying, onReply, onCancelReply,
       </CommentBody>
 
       {replying && (
-        <div className="pl-[42px]">
+        <div className="sm:pl-[42px]">
           <CommentComposer
             id={`reply-${comment.id}`}
             postId={postId}
@@ -69,7 +69,7 @@ export function CommentCard({ postId, comment, replying, onReply, onCancelReply,
       {comment.replies.length > 0 && (
         <ul
           aria-label={copy.reply.repliesLabel(comment.author.name)}
-          className="ml-4 flex flex-col gap-4 border-l-2 border-[var(--bio-hairline)] pl-6"
+          className="ml-1 flex flex-col gap-4 border-l-2 border-[var(--bio-hairline)] pl-4 sm:ml-4 sm:pl-6"
         >
           {comment.replies.map((reply) => (
             <li key={reply.id}>
@@ -91,7 +91,7 @@ type CommentBodyProps = {
 
 /** Header (author, badges, time), text and actions: shared by comments and replies. */
 function CommentBody({ comment, kind, children }: CommentBodyProps) {
-  const indent = kind === "comment" ? "pl-[42px]" : "pl-[38px]";
+  const indent = kind === "comment" ? "sm:pl-[42px]" : "sm:pl-[38px]";
   return (
     <div className="flex flex-col gap-2">
       <div className="flex flex-wrap items-center gap-2.5 text-[13px] text-v-text-2">
@@ -104,7 +104,7 @@ function CommentBody({ comment, kind, children }: CommentBodyProps) {
         <span>{comment.date}</span>
       </div>
       <p className={cn("leading-[1.6] break-words whitespace-pre-line", indent)}>{comment.text}</p>
-      <div className={cn("flex flex-wrap items-center gap-1", kind === "comment" ? "pl-[34px]" : "pl-[30px]")}>
+      <div className={cn("flex flex-wrap items-center gap-1", kind === "comment" ? "sm:pl-[34px]" : "sm:pl-[30px]")}>
         <CommentVote comment={comment} label={copy.vote[kind]} />
         {children}
       </div>

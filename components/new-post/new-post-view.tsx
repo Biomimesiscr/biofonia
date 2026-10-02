@@ -19,7 +19,7 @@ export function NewPostView({ author, categories }: NewPostViewProps) {
     <>
       <SiteHeader />
       <main className="flex-1">
-        <Container className="flex flex-col gap-8 pt-10 pb-20">
+        <Container className="flex flex-col gap-6 pt-6 pb-16 sm:gap-8 sm:pt-10 sm:pb-20">
           <div className="flex flex-col gap-3">
             <Link
               href="/perfil"

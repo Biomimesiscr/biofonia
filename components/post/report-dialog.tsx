@@ -58,7 +58,7 @@ export function ReportDialog({ postId, reasons, className }: ReportDialogProps) 
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Backdrop className="fixed inset-0 z-40 bg-[rgba(20,23,27,.45)]" />
-        <Dialog.Popup className="fixed top-1/2 left-1/2 z-50 flex max-h-[calc(100dvh-32px)] w-[calc(100%-32px)] max-w-[460px] -translate-x-1/2 -translate-y-1/2 flex-col gap-5 overflow-y-auto rounded-[28px] bg-v-paper p-7 text-v-text shadow-[0_12px_32px_-12px_rgba(17,17,17,.18)] outline-none">
+        <Dialog.Popup className="fixed top-1/2 left-1/2 z-50 flex max-h-[calc(100dvh-32px)] w-[calc(100%-32px)] max-w-[460px] -translate-x-1/2 -translate-y-1/2 flex-col gap-5 overflow-y-auto rounded-[28px] bg-v-paper p-5 text-v-text sm:p-7 shadow-[0_12px_32px_-12px_rgba(17,17,17,.18)] outline-none">
           <div className="flex items-start justify-between gap-3">
             <div className="flex flex-col gap-1.5">
               <Dialog.Title className="text-[21px] font-semibold">{copy.title}</Dialog.Title>
@@ -96,10 +96,10 @@ export function ReportDialog({ postId, reasons, className }: ReportDialogProps) 
             <FormMessage message={error} />
 
             <div className="flex flex-wrap justify-end gap-2">
-              <Dialog.Close render={<Button type="button" variant="outline" className="h-11 px-5" />}>
+              <Dialog.Close render={<Button type="button" variant="outline" className="h-11 px-5 max-sm:flex-1" />}>
                 {copy.cancel}
               </Dialog.Close>
-              <Button type="submit" className="h-11 px-5" disabled={!reasonId} loading={pending}>
+              <Button type="submit" className="h-11 px-5 max-sm:flex-1" disabled={!reasonId} loading={pending}>
                 {copy.submit}
               </Button>
             </div>

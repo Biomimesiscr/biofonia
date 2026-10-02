@@ -45,8 +45,8 @@ export function SegmentedControl<T extends string>({
             aria-pressed={active}
             onClick={() => onChange(option.value)}
             className={cn(
-              "h-10 cursor-pointer rounded-full px-4 text-[14px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-v-brand",
-              fill && "h-11 flex-1",
+              "min-h-10 min-w-0 cursor-pointer rounded-full px-4 py-1.5 text-[14px] leading-tight focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-v-brand",
+              fill && "min-h-11 flex-1",
               active ? activeTone[tone] : "font-medium text-v-text",
             )}
           >

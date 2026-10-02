@@ -106,11 +106,11 @@ export function NewPostForm({ author, categories }: NewPostFormProps) {
           <ImagePicker value={imageUrl} onChange={edit(changeImage)} />
 
           <div className="flex flex-col gap-2 border-t border-v-edge pt-6">
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <Link href="/perfil" className="flex h-11 items-center text-[14px] font-medium">
+            <div className="flex flex-wrap items-center justify-between gap-3 max-sm:flex-col-reverse max-sm:items-stretch">
+              <Link href="/perfil" className="flex h-11 items-center text-[14px] font-medium max-sm:justify-center">
                 {newPost.cancel}
               </Link>
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap gap-3 max-sm:[&>button]:flex-1">
                 <Button
                   type="submit"
                   name="intent"
@@ -134,7 +134,7 @@ export function NewPostForm({ author, categories }: NewPostFormProps) {
               </div>
             </div>
             {missing && !saved && (
-              <p className="text-right text-[13px] text-v-text-3">{newPost.missing}</p>
+              <p className="text-right text-[13px] text-v-text-3 max-sm:text-center">{newPost.missing}</p>
             )}
           </div>
         </form>

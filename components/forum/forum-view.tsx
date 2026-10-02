@@ -30,7 +30,7 @@ export function ForumView({ posts, categories, totalToday, topPosts, filters }: 
   return (
     <>
       <SiteHeader />
-      <Container className="flex max-w-[1240px] flex-1 flex-wrap items-start gap-8 pt-8 pb-20">
+      <Container className="flex max-w-[1240px] flex-1 flex-wrap items-start gap-6 pt-6 pb-16 sm:gap-8 sm:pt-8 sm:pb-20">
         <ForumCategories categories={categories} total={totalToday} filters={filters} />
 
         <main className="flex min-w-0 flex-[999_1_520px] flex-col gap-5">
@@ -43,7 +43,7 @@ export function ForumView({ posts, categories, totalToday, topPosts, filters }: 
 
           <div className="flex flex-wrap items-center justify-between gap-3">
             <ForumSort filters={filters} />
-            <Button asChild variant="outline" className="h-11 bg-v-paper px-5">
+            <Button asChild variant="outline" className="h-11 bg-v-paper px-5 max-sm:w-full">
               <Link href={newPost.href} className="no-underline">
                 <Icon name="plus" className="size-[18px]" />
                 {forum.share}
@@ -60,7 +60,7 @@ export function ForumView({ posts, categories, totalToday, topPosts, filters }: 
           </div>
         </main>
 
-        <aside className="flex max-w-80 flex-[1_1_280px] flex-col gap-4">
+        <aside className="flex flex-[1_1_280px] flex-col gap-4 max-lg:grid max-lg:grid-cols-[repeat(auto-fit,minmax(min(280px,100%),1fr))] max-lg:items-start lg:max-w-80">
           <ForumBanner />
           <TopPosts posts={topPosts} />
           <ForumRulesCard variant="summary" />

@@ -10,7 +10,7 @@ import type { ProfilePostItem } from "./types";
 
 export function ProfilePostCard({ post }: { post: ProfilePostItem }) {
   return (
-    <Card className="flex flex-col gap-3 rounded-[20px] p-6">
+    <Card className="flex flex-col gap-3 rounded-[20px] p-5 sm:p-6">
       <div className="flex flex-wrap items-center gap-2.5 text-[13px] text-v-text-2">
         <CategoryLabel category={post.category} />
         <span aria-hidden="true">·</span>
@@ -19,7 +19,7 @@ export function ProfilePostCard({ post }: { post: ProfilePostItem }) {
           <Badge className="h-auto px-2.5 py-0.5 text-[13px]">{profile.posts.draft}</Badge>
         )}
       </div>
-      <h3 className="text-[21px] leading-[1.25] font-semibold">
+      <h3 className="text-[19px] leading-[1.25] sm:text-[21px] font-semibold">
         <Link href={postHref(post.id)} className="text-v-text no-underline hover:text-v-text hover:underline">
           {post.title}
         </Link>

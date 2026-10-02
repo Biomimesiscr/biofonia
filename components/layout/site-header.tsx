@@ -19,7 +19,7 @@ export async function SiteHeader() {
       <Container as="header" className="flex flex-wrap items-center justify-between gap-4 py-6">
         <Logo name={site.name} />
         <div className="flex flex-wrap items-center gap-3">
-          <StatusPill label={site.statusLabel} />
+          <StatusPill label={site.statusLabel} className="max-sm:hidden" />
           <Button asChild className="h-11 px-5">
             <Link href={site.loginHref} className="no-underline">
               {site.loginLabel}
@@ -35,16 +35,16 @@ export async function SiteHeader() {
   return (
     <header className="relative z-20 border-b border-[var(--bio-hairline)] bg-v-paper">
       <Container className="flex max-w-[1240px] flex-wrap items-center justify-between gap-4 py-3">
-        <div className="flex flex-wrap items-center gap-6">
+        <div className="flex flex-wrap items-center gap-6 max-sm:contents">
           <Logo name={site.name} size="sm" />
-          <MainNav />
+          <MainNav className="max-sm:order-last max-sm:w-full" />
         </div>
         <div className="flex items-center gap-2">
           {user.isOnboarded && (
-            <Button asChild className="h-10 px-[18px]">
+            <Button asChild className="h-10 px-[18px] max-sm:w-11 max-sm:px-0">
               <Link href={newPost.href} className="no-underline">
                 <Icon name="plus" className="size-[18px]" />
-                {newPost.navLabel}
+                <span className="max-sm:sr-only">{newPost.navLabel}</span>
               </Link>
             </Button>
           )}

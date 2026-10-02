@@ -2,10 +2,10 @@ import type { ComponentProps, ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 export const inputClassName =
-  "h-12 w-full rounded-full border border-v-edge bg-v-paper px-5 text-[15px] text-v-text placeholder:text-v-text-3 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-v-brand aria-invalid:border-v-danger";
+  "h-12 w-full rounded-full border border-v-edge bg-v-paper px-5 text-[16px] text-v-text placeholder:text-v-text-3 sm:text-[15px] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-v-brand aria-invalid:border-v-danger";
 
 export const textareaClassName =
-  "w-full resize-y rounded-[20px] border border-v-edge bg-v-paper px-5 py-4 text-[15px] leading-normal text-v-text placeholder:text-v-text-3 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-v-brand aria-invalid:border-v-danger";
+  "w-full resize-y rounded-[20px] border border-v-edge bg-v-paper px-5 py-4 text-[16px] leading-normal sm:text-[15px] text-v-text placeholder:text-v-text-3 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-v-brand aria-invalid:border-v-danger";
 
 type FieldProps = {
   id: string;

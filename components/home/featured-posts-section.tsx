@@ -11,14 +11,14 @@ export function FeaturedPostsSection() {
     <Container
       as="section"
       aria-labelledby={featuredPosts.id}
-      className="flex flex-col gap-8 pb-20"
+      className="flex flex-col gap-8 pb-12 sm:pb-20"
     >
       <SectionHeading
         id={featuredPosts.id}
         eyebrow={featuredPosts.eyebrow}
         title={featuredPosts.title}
         action={
-          <Button asChild size="lg">
+          <Button asChild size="lg" className="max-sm:w-full">
             <Link href={site.forumHref} className="no-underline">
               {featuredPosts.actionLabel}
               <Icon name="arrow-right" className="size-[18px]" />

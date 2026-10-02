@@ -37,7 +37,7 @@ export function AccountMenu({ name, initials, userType }: AccountMenuProps) {
     <Menu.Root>
       <Menu.Trigger
         aria-label={site.account.triggerLabel}
-        className="group flex h-11 cursor-pointer items-center gap-2 rounded-full border border-[var(--bio-hairline)] bg-v-paper py-0 pr-3 pl-0.5 text-[14px] font-medium text-v-text data-[popup-open]:border-v-edge data-[popup-open]:bg-v-beige-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-v-brand"
+        className="group flex h-11 cursor-pointer items-center gap-2 rounded-full border border-[var(--bio-hairline)] bg-v-paper py-0 pr-3 pl-0.5 text-[14px] max-sm:pr-0.5 font-medium text-v-text data-[popup-open]:border-v-edge data-[popup-open]:bg-v-beige-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-v-brand"
       >
         <Avatar
           variant={role?.style.avatar ?? "default"}
@@ -45,10 +45,10 @@ export function AccountMenu({ name, initials, userType }: AccountMenuProps) {
         >
           <AvatarFallback>{initials}</AvatarFallback>
         </Avatar>
-        <span>{firstName}</span>
+        <span className="max-sm:hidden">{firstName}</span>
         <Icon
           name="chevron-down"
-          className="size-4 transition-transform duration-200 group-data-[popup-open]:rotate-180"
+          className="size-4 transition-transform max-sm:hidden duration-200 group-data-[popup-open]:rotate-180"
         />
       </Menu.Trigger>
       <Menu.Portal>

@@ -12,7 +12,7 @@ type PostArticleProps = { post: PostDetailItem; reasons: readonly ReportReasonOp
 /** The post itself: meta, title, author, body and (once published) its actions. */
 export function PostArticle({ post, reasons }: PostArticleProps) {
   return (
-    <Card className="rounded-[28px] p-[clamp(24px,3vw,40px)]">
+    <Card className="rounded-[28px] p-[clamp(20px,3vw,40px)]">
       <article className="flex flex-col gap-5">
         <div className="flex flex-wrap items-center justify-between gap-3 text-[13px]">
           <CategoryLabel category={post.category} />

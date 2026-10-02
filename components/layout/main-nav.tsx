@@ -9,11 +9,11 @@ const isActive = (pathname: string, href: string) =>
   href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
 
 /** Inicio / Foro pills; the current section is filled. */
-export function MainNav() {
+export function MainNav({ className }: { className?: string }) {
   const pathname = usePathname();
 
   return (
-    <nav aria-label={site.navLabel} className="flex items-center gap-1">
+    <nav aria-label={site.navLabel} className={cn("flex items-center gap-1", className)}>
       {site.nav.map(({ label, href }) => {
         const active = isActive(pathname, href);
         return (

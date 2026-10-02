@@ -8,7 +8,7 @@ export function ParticipateSection() {
     <Container
       as="section"
       aria-labelledby={participate.id}
-      className="flex flex-col gap-10 pt-12 pb-20"
+      className="flex flex-col gap-8 pt-8 pb-12 sm:gap-10 sm:pt-12 sm:pb-20"
     >
       <SectionHeading
         id={participate.id}

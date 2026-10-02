@@ -35,7 +35,7 @@ export function PostView({ post, threads, voices, related, reasons, viewer }: Po
     <>
       {post.published && <ViewTracker postId={post.id} />}
       <SiteHeader />
-      <Container className="flex max-w-[1240px] flex-1 flex-col gap-4 pt-6 pb-24">
+      <Container className="flex max-w-[1240px] flex-1 flex-col gap-4 pt-4 pb-16 sm:pt-6 sm:pb-24">
         <Link
           href={site.forumHref}
           className="flex min-h-11 items-center gap-1.5 self-start text-[14px] font-medium no-underline"
@@ -44,7 +44,7 @@ export function PostView({ post, threads, voices, related, reasons, viewer }: Po
           {postDetail.back}
         </Link>
 
-        <div className="flex flex-wrap items-start gap-8">
+        <div className="flex flex-wrap items-start gap-6 sm:gap-8">
           <main className="flex min-w-0 flex-[999_1_560px] flex-col gap-6">
             <PostArticle post={post} reasons={reasons} />
             {post.published && (
@@ -52,7 +52,7 @@ export function PostView({ post, threads, voices, related, reasons, viewer }: Po
             )}
           </main>
 
-          <aside className="flex max-w-[340px] min-w-0 flex-[1_1_280px] flex-col gap-4">
+          <aside className="flex min-w-0 lg:max-w-[340px] flex-[1_1_280px] flex-col gap-4">
             <PostAuthorCard author={post.author} />
             {post.published && <ConversationBalance voices={voices} />}
             <RelatedPosts posts={related} />

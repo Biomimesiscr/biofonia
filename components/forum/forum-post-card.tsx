@@ -14,7 +14,7 @@ import { VoteButton } from "./vote-button";
 export function ForumPostCard({ post }: { post: ForumPostItem }) {
   const reportHintId = `report-soon-${post.id}`;
   return (
-    <Card className="flex gap-4 rounded-[20px] py-5 pr-6 pl-4">
+    <Card className="flex gap-3 rounded-[20px] py-4 pr-4 pl-3 sm:gap-4 sm:py-5 sm:pr-6 sm:pl-4">
       <VoteButton postId={post.id} votes={post.votes} voted={post.voted} />
       <article className="flex min-w-0 flex-1 flex-col gap-2.5">
         <div className="flex flex-wrap items-center gap-2 text-[13px] text-v-text-2">
@@ -24,7 +24,7 @@ export function ForumPostCard({ post }: { post: ForumPostItem }) {
           <span aria-hidden="true">·</span>
           <span>{post.date}</span>
         </div>
-        <h2 className="text-[19px] leading-[1.3] font-semibold break-words">
+        <h2 className="text-[17px] leading-[1.3] font-semibold break-words sm:text-[19px]">
           <Link href={postHref(post.id)} className="text-v-text no-underline hover:underline">
             {post.title}
           </Link>

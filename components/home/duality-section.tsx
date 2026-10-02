@@ -12,13 +12,13 @@ const audienceStyle = {
 
 export function DualitySection() {
   return (
-    <Container as="section" className="flex flex-col gap-8 pt-12 pb-16">
+    <Container as="section" className="flex flex-col gap-8 pt-8 pb-10 sm:pt-12 sm:pb-16">
       <div className="flex flex-wrap gap-4">
         {duality.cards.map((item) => (
           <Card
             key={item.audience}
             className={cn(
-              "flex min-h-[220px] basis-[320px] flex-1 flex-col justify-between gap-5 rounded-[28px] px-8 py-10",
+              "flex min-h-[180px] basis-[320px] flex-1 flex-col justify-between gap-5 rounded-[28px] px-6 py-8 sm:min-h-[220px] sm:px-8 sm:py-10",
               audienceStyle[item.audience].card,
             )}
           >

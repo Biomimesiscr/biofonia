@@ -14,9 +14,9 @@ export default async function AccesoPage({ searchParams }: PageProps<"/acceso">)
   const { modo, error } = await searchParams;
 
   return (
-    <div className="flex min-h-screen flex-wrap bg-v-canvas text-v-text">
+    <div className="flex min-h-screen flex-wrap content-start bg-v-canvas md:content-stretch text-v-text">
       <AuthAside />
-      <main className="flex flex-[1_1_480px] items-center justify-center px-6 py-[clamp(24px,4vw,64px)]">
+      <main className="flex flex-[1_1_480px] items-start justify-center px-6 py-8 md:items-center md:py-[clamp(24px,4vw,64px)]">
         <AuthPanel
           initialMode={modo === "registro" ? "registro" : "login"}
           notice={error === "google" ? access.googleError : undefined}

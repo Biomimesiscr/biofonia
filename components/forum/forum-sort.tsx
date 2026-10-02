@@ -29,7 +29,7 @@ export function ForumSort({ filters }: { filters: ForumFilters }) {
       options={options}
       value={filters.orden}
       onChange={change}
-      className={cn(pending && "opacity-70")}
+      className={cn("max-sm:w-full max-sm:[&>button]:flex-1", pending && "opacity-70")}
     />
   );
 }

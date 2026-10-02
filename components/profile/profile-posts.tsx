@@ -39,7 +39,7 @@ export function ProfilePosts({ posts, categories, isOwner }: ProfilePostsProps) 
   return (
     <section
       aria-labelledby="profile-posts"
-      className="flex min-w-0 flex-[999_1_520px] flex-col gap-6 pt-10"
+      className="flex min-w-0 flex-[999_1_520px] flex-col gap-6 pt-2 lg:pt-10"
     >
       <div className="flex flex-wrap items-end justify-between gap-4">
         <DisplayText as="h2" id="profile-posts" size="lg">
@@ -52,6 +52,7 @@ export function ProfilePosts({ posts, categories, isOwner }: ProfilePostsProps) 
             value={view}
             onChange={setView}
             tone="paper"
+            className="max-sm:w-full max-sm:[&>button]:flex-1"
           />
         )}
       </div>
