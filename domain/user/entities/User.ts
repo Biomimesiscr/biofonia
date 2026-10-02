@@ -49,6 +49,13 @@ export class User {
     this.props.updatedAt = this.props.onboardedAt;
   }
 
+  updateProfile(input: { name: string; userType: UserType; biography: string }): void {
+    this.props.name = UserName.create(input.name);
+    this.props.userType = input.userType;
+    this.props.biography = Biography.create(input.biography);
+    this.props.updatedAt = new Date();
+  }
+
   get id(): string | null {
     return this.props.id;
   }

@@ -1,5 +1,5 @@
+import Link from "next/link";
 import { DisplayText } from "@/components/shared/display-text";
-import { Eyebrow } from "@/components/shared/eyebrow";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge, BadgeIndicator } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -53,16 +53,12 @@ export function ProfileCard({ profile: user, isOwner }: ProfileCardProps) {
       </ul>
 
       {isOwner && (
-        <div className="flex flex-col gap-1.5">
-          {/* No edit page yet: the action is shown but unavailable. */}
-          <Button variant="outline" disabled aria-describedby="edit-profile-soon" className="h-11">
+        <Button asChild variant="outline" className="h-11">
+          <Link href={profile.edit.href}>
             <Icon name="pencil" className="size-[18px]" />
             {profile.editProfile}
-          </Button>
-          <Eyebrow id="edit-profile-soon" tone="pine" className="text-center">
-            {profile.editProfileSoon}
-          </Eyebrow>
-        </div>
+          </Link>
+        </Button>
       )}
     </Card>
   );

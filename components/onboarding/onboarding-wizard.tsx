@@ -4,20 +4,15 @@ import { useActionState, useState } from "react";
 import { completeOnboarding } from "@/app/actions/onboarding";
 import { Logo } from "@/components/brand/logo";
 import { FieldError, FormMessage, TextareaField } from "@/components/forms/form-field";
-import { ChoiceCard } from "@/components/shared/choice-card";
 import { Eyebrow } from "@/components/shared/eyebrow";
 import { DisplayText } from "@/components/shared/display-text";
+import { type Role, RoleChoice } from "@/components/shared/role-choice";
 import { Button } from "@/components/ui/button";
 import { onboarding } from "@/content/auth";
 import { site } from "@/content/home";
 import { cn } from "@/lib/utils";
 
 const TOTAL_STEPS = 2;
-
-const iconTone = { olive: "bg-v-olive", pink: "bg-v-pink" } as const;
-const kickerTone = { olive: "text-v-olive-ink", pink: "text-v-accent-ink" } as const;
-
-type Role = (typeof onboarding.role.options)[number]["value"];
 
 /** Two steps (where you come from, biography) posted together at the end. */
 export function OnboardingWizard() {
@@ -62,61 +57,7 @@ export function OnboardingWizard() {
               </DisplayText>
               <p className="text-[17px] leading-[1.55] text-v-text-2">{onboarding.role.lead}</p>
             </div>
-            <fieldset className="flex flex-wrap gap-4">
-              <legend className="sr-only">{onboarding.role.legend}</legend>
-              {onboarding.role.options.map((option) => {
-                const checked = role === option.value;
-                return (
-                  <ChoiceCard
-                    key={option.value}
-                    checked={checked}
-                    className="flex-[1_1_240px] flex-col gap-4 p-6"
-                  >
-                    <div className="flex items-center justify-between gap-3">
-                      <span
-                        className={cn(
-                          "flex size-12 items-center justify-center rounded-full",
-                          iconTone[option.tone],
-                        )}
-                      >
-                        <svg
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="1.6"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          aria-hidden="true"
-                          className="text-v-on-accent"
-                        >
-                          <path d={option.icon} />
-                        </svg>
-                      </span>
-                      <input
-                        type="radio"
-                        name="userType"
-                        value={option.value}
-                        checked={checked}
-                        onChange={() => setRole(option.value)}
-                        className="size-5 accent-v-ink"
-                      />
-                    </div>
-                    <span
-                      className={cn(
-                        "text-[11px] font-semibold uppercase tracking-[0.075em]",
-                        kickerTone[option.tone],
-                      )}
-                    >
-                      {option.kicker}
-                    </span>
-                    <span className="text-[21px] leading-[1.2] font-semibold">{option.title}</span>
-                    <span className="text-v-text-2">{option.text}</span>
-                  </ChoiceCard>
-                );
-              })}
-            </fieldset>
+            <RoleChoice legend={onboarding.role.legend} value={role} onChange={setRole} />
             {roleErrors && <FieldError id="role-error" errors={roleErrors} />}
             <div className="flex justify-end">
               <Button type="button" size="lg" disabled={!role} onClick={() => setStep(2)}>

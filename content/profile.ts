@@ -4,7 +4,21 @@ export const profile = {
   avatarLabel: (name: string) => `Foto de perfil de ${name}`,
   memberSince: (monthYear: string) => `En Biofonía desde ${monthYear}`,
   editProfile: "Editar perfil",
-  editProfileSoon: "Próximamente",
+  edit: {
+    metaTitle: "Editar perfil · Biofonía",
+    href: "/perfil/editar",
+    back: "Volver a mi perfil",
+    title: "Editar perfil",
+    lead: "Así te ven las demás personas del foro. Puedes cambiarlo cuando quieras.",
+    name: { label: "Nombre" },
+    role: { legend: "¿Desde dónde llegas a la conversación?" },
+    bio: {
+      label: "Tu biografía",
+      help: "Qué haces, dónde estás y qué te interesa observar o investigar.",
+    },
+    save: "Guardar cambios",
+    cancel: "Cancelar",
+  },
   stats: {
     published: "Publicaciones",
     votes: "Votos recibidos",

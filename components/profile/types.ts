@@ -25,3 +25,10 @@ export type ProfilePostItem = {
 };
 
 export type { CategoryOption };
+
+/** The fields /perfil/editar lets the owner change. */
+export type EditableProfile = {
+  name: string;
+  userType: ProfileData["userType"];
+  biography: string;
+};
