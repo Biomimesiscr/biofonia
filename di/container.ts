@@ -2,6 +2,8 @@ import "server-only";
 
 import { AuthService } from "@/application/auth/services/implementations/AuthService";
 import { PostService } from "@/application/post/services/implementations/PostService";
+import { PostCommentService } from "@/application/postComment/services/implementations/PostCommentService";
+import { PostReportService } from "@/application/postReport/services/implementations/PostReportService";
 import { PostCategoryService } from "@/application/postCategory/services/implementations/PostCategoryService";
 import { UserService } from "@/application/user/services/implementations/UserService";
 import { CryptoSessionTokenService } from "@/infrastructure/auth/CryptoSessionTokenService";
@@ -11,6 +13,10 @@ import {
 } from "@/infrastructure/auth/GoogleOAuthIdentityProvider";
 import { ScryptPasswordHasher } from "@/infrastructure/auth/ScryptPasswordHasher";
 import { PrismaPostRepository } from "@/infrastructure/post/repositories/PrismaPostRepository";
+import { PrismaPostCommentRepository } from "@/infrastructure/postComment/repositories/PrismaPostCommentRepository";
+import { PrismaPostCommentLikeRepository } from "@/infrastructure/postCommentLike/repositories/PrismaPostCommentLikeRepository";
+import { PrismaPostReportRepository } from "@/infrastructure/postReport/repositories/PrismaPostReportRepository";
+import { PrismaPostReportReasonRepository } from "@/infrastructure/postReportReason/repositories/PrismaPostReportReasonRepository";
 import { PrismaPostCategoryRepository } from "@/infrastructure/postCategory/repositories/PrismaPostCategoryRepository";
 import { PrismaPostLikeRepository } from "@/infrastructure/postLike/repositories/PrismaPostLikeRepository";
 import { PrismaSessionRepository } from "@/infrastructure/session/repositories/PrismaSessionRepository";
@@ -30,6 +36,10 @@ import PostCategoryController from "@/presentation/postCategory/controllers/post
 const postCategoryRepository = new PrismaPostCategoryRepository();
 const postRepository = new PrismaPostRepository();
 const postLikeRepository = new PrismaPostLikeRepository();
+const postCommentRepository = new PrismaPostCommentRepository();
+const postCommentLikeRepository = new PrismaPostCommentLikeRepository();
+const postReportRepository = new PrismaPostReportRepository();
+const postReportReasonRepository = new PrismaPostReportReasonRepository();
 const userRepository = new PrismaUserRepository();
 const sessionRepository = new PrismaSessionRepository();
 
@@ -42,6 +52,16 @@ const googleIdentityProvider = new GoogleOAuthIdentityProvider(googleOAuthConfig
 // ------------------------------ Services -------------------------------
 export const postCategoryService = new PostCategoryService(postCategoryRepository);
 export const postService = new PostService(postRepository, postCategoryRepository, postLikeRepository);
+export const postCommentService = new PostCommentService(
+  postCommentRepository,
+  postCommentLikeRepository,
+  postRepository,
+);
+export const postReportService = new PostReportService(
+  postReportRepository,
+  postReportReasonRepository,
+  postRepository,
+);
 export const userService = new UserService(userRepository);
 export const authService = new AuthService(
   userRepository,
