@@ -47,6 +47,7 @@ export const hero = {
   eyebrow: "Un espacio de Biomímesis Costa Rica",
   title: "Un foro para conversar entre laboratorio y territorio.",
   lead: "Ciencia académica y saber local, sin jerarquías: preguntando, escuchando y construyendo conocimiento juntos.",
+  cta: "Explorar el foro",
 } as const;
 
 export const soundwave = {
