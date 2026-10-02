@@ -16,7 +16,8 @@ export async function toggleVote(postId: string): Promise<VoteResult> {
 
   try {
     const result = await postService.toggleVote(postId, user.id!);
-    revalidatePath("/foro");
+    // "layout" also refreshes the post pages under /foro.
+    revalidatePath("/foro", "layout");
     revalidatePath("/perfil", "layout");
     return result;
   } catch (error) {
