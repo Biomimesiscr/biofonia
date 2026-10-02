@@ -1,12 +1,12 @@
-import { CategoryDot } from "@/components/posts/category-dot";
-import { AudienceBadge } from "@/components/shared/audience-badge";
+import Link from "next/link";
+import { AuthorLine } from "@/components/posts/author-line";
+import { CategoryLabel } from "@/components/posts/category-label";
 import { Stat } from "@/components/shared/stat";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Icon } from "@/components/ui/icon";
 import { forum, postStats } from "@/content/forum";
-import { profile } from "@/content/profile";
+import { postHref } from "./forum-href";
 import type { ForumPostItem } from "./types";
 import { VoteButton } from "./vote-button";
 
@@ -18,27 +18,17 @@ export function ForumPostCard({ post }: { post: ForumPostItem }) {
       <VoteButton postId={post.id} votes={post.votes} voted={post.voted} />
       <article className="flex min-w-0 flex-1 flex-col gap-2.5">
         <div className="flex flex-wrap items-center gap-2 text-[13px] text-v-text-2">
-          <span className="flex items-center gap-1.5 font-semibold text-v-text">
-            {post.category && <CategoryDot tone={post.category.tone} />}
-            {post.category?.name ?? profile.posts.uncategorized}
-          </span>
+          <CategoryLabel category={post.category} />
           <span aria-hidden="true">·</span>
-          <span className="flex items-center gap-1.5">
-            <Avatar
-              variant={post.author.avatar}
-              aria-hidden="true"
-              className="size-6 font-text text-[10px] font-bold [box-shadow:none]"
-            >
-              <AvatarFallback>{post.author.initials}</AvatarFallback>
-            </Avatar>
-            {post.author.name}
-          </span>
-          <AudienceBadge audience={post.author.audience} />
+          <AuthorLine author={post.author} />
           <span aria-hidden="true">·</span>
           <span>{post.date}</span>
         </div>
-        {/* No post page yet: the title is plain text. */}
-        <h2 className="text-[19px] leading-[1.3] font-semibold break-words">{post.title}</h2>
+        <h2 className="text-[19px] leading-[1.3] font-semibold break-words">
+          <Link href={postHref(post.id)} className="text-v-text no-underline hover:underline">
+            {post.title}
+          </Link>
+        </h2>
         {post.excerpt && <p className="line-clamp-2 leading-[1.55] text-v-text-2">{post.excerpt}</p>}
         <div className="flex flex-wrap items-center gap-2 text-[13px] text-v-text-2">
           <span className="flex min-h-9 items-center rounded-full bg-v-beige px-3 font-medium text-v-text">

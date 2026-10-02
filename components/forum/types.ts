@@ -1,6 +1,6 @@
+import type { PostAuthor } from "@/components/posts/author-line";
 import type { CategoryOption } from "@/components/posts/category-filter";
 import type { CategoryTone } from "@/content/forum";
-import type { Audience } from "@/content/home";
 import type { ForumSortParam } from "@/presentation/post/forumSortParams";
 
 /** Serializable post for the forum feed: entities never reach client components. */
@@ -9,7 +9,7 @@ export type ForumPostItem = {
   title: string;
   excerpt: string;
   category: { name: string; tone: CategoryTone } | null;
-  author: { name: string; initials: string; avatar: "pink" | "olive"; audience: Audience };
+  author: PostAuthor;
   date: string;
   views: number;
   comments: number;

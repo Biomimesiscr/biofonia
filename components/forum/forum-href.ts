@@ -1,5 +1,10 @@
 import type { ForumFilters } from "./types";
 
+/** The page of one post. */
+export function postHref(id: string): string {
+  return `/foro/${id}`;
+}
+
 /** `/foro` with the given filters; the defaults are left out of the URL. */
 export function forumHref({ categoria, orden }: ForumFilters): string {
   const params = new URLSearchParams();

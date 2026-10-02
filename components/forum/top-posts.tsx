@@ -1,5 +1,7 @@
+import Link from "next/link";
 import { Card } from "@/components/ui/card";
 import { forum } from "@/content/forum";
+import { postHref } from "./forum-href";
 import type { TopPostItem } from "./types";
 
 /** "Lo más votado del mes": the month's three most voted posts. */
@@ -15,7 +17,12 @@ export function TopPosts({ posts }: { posts: readonly TopPostItem[] }) {
               {String(index + 1).padStart(2, "0")}
             </span>
             <span className="flex flex-col gap-0.5">
-              <span className="text-[14px] leading-[1.35] font-semibold">{post.title}</span>
+              <Link
+                href={postHref(post.id)}
+                className="text-[14px] leading-[1.35] font-semibold text-v-text no-underline hover:underline"
+              >
+                {post.title}
+              </Link>
               <span className="text-[12px] text-v-text-2">{forum.top.meta(post.votes, post.category)}</span>
             </span>
           </li>

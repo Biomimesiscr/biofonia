@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { MotionDefaults } from "@/components/motion/motion-defaults";
+import { ToastProvider } from "@/components/shared/toast";
 import { site } from "@/content/home";
 import "./globals.css";
 
@@ -13,7 +14,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="es" className="h-full antialiased">
       <body className="flex min-h-full flex-col">
         <MotionDefaults />
-        {children}
+        <ToastProvider>{children}</ToastProvider>
       </body>
     </html>
   );

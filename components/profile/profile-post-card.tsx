@@ -1,10 +1,10 @@
 import Link from "next/link";
-import { CategoryDot } from "@/components/posts/category-dot";
+import { postHref } from "@/components/forum/forum-href";
+import { CategoryLabel } from "@/components/posts/category-label";
 import { Stat } from "@/components/shared/stat";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { postStats } from "@/content/forum";
-import { site } from "@/content/home";
 import { profile } from "@/content/profile";
 import type { ProfilePostItem } from "./types";
 
@@ -12,10 +12,7 @@ export function ProfilePostCard({ post }: { post: ProfilePostItem }) {
   return (
     <Card className="flex flex-col gap-3 rounded-[20px] p-6">
       <div className="flex flex-wrap items-center gap-2.5 text-[13px] text-v-text-2">
-        <span className="flex items-center gap-1.5 font-semibold text-v-text">
-          {post.category && <CategoryDot tone={post.category.tone} />}
-          {post.category?.name ?? profile.posts.uncategorized}
-        </span>
+        <CategoryLabel category={post.category} />
         <span aria-hidden="true">·</span>
         <span>{post.date}</span>
         {!post.published && (
@@ -23,8 +20,7 @@ export function ProfilePostCard({ post }: { post: ProfilePostItem }) {
         )}
       </div>
       <h3 className="text-[21px] leading-[1.25] font-semibold">
-        {/* No post page yet: titles open the forum. */}
-        <Link href={site.forumHref} className="text-v-text no-underline hover:text-v-text">
+        <Link href={postHref(post.id)} className="text-v-text no-underline hover:text-v-text hover:underline">
           {post.title}
         </Link>
       </h3>
