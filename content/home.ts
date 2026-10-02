@@ -28,7 +28,19 @@ export const site = {
   loginHref: "/acceso",
   logoutLabel: "Cerrar sesión",
   completeProfileLabel: "Completa tu perfil",
+  completeProfileHref: "/bienvenida",
   forumHref: "/foro",
+  navLabel: "Principal",
+  nav: [
+    { label: "Inicio", href: "/" },
+    { label: "Foro", href: "/foro" },
+  ],
+  account: {
+    triggerLabel: "Menú de tu cuenta",
+    menuLabel: "Tu cuenta",
+    myProfileLabel: "Mi perfil",
+    myProfileHref: "/perfil",
+  },
 } as const;
 
 export const hero = {
