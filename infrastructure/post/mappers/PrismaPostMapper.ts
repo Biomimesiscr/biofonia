@@ -7,6 +7,7 @@ import type {
 import { Post } from "@/domain/post/entities/Post";
 import { AuthorPost } from "@/domain/post/readmodels/AuthorPost";
 import { ForumPost } from "@/domain/post/readmodels/ForumPost";
+import { PostDetail } from "@/domain/post/readmodels/PostDetail";
 
 type AuthorPostRow = PrismaPost & {
   postCategory: PrismaPostCategory | null;
@@ -17,6 +18,10 @@ type ForumPostRow = AuthorPostRow & {
   author: Pick<PrismaUser, "id" | "name" | "email" | "userType">;
   /** Only the viewer's own like, when a viewer was given. */
   postLikes?: { id: string }[];
+};
+
+type PostDetailRow = ForumPostRow & {
+  author: Pick<PrismaUser, "id" | "name" | "email" | "userType" | "biography">;
 };
 
 export class PrismaPostMapper {
@@ -53,6 +58,11 @@ export class PrismaPostMapper {
       },
       likedByViewer: (row.postLikes?.length ?? 0) > 0,
     };
+  }
+
+  static toPostDetail(row: PostDetailRow): PostDetail {
+    const forumPost = PrismaPostMapper.toForumPost(row);
+    return { ...forumPost, author: { ...forumPost.author, biography: row.author.biography } };
   }
 
   static toPersistence(entity: Post): Prisma.PostUncheckedCreateInput {

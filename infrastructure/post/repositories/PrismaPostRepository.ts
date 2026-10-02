@@ -1,6 +1,7 @@
 import { Post } from "@/domain/post/entities/Post";
 import { AuthorPost } from "@/domain/post/readmodels/AuthorPost";
 import { ForumPost } from "@/domain/post/readmodels/ForumPost";
+import { PostDetail } from "@/domain/post/readmodels/PostDetail";
 import {
   IPostRepository,
   ListByAuthorOptions,
@@ -10,6 +11,16 @@ import type { Prisma } from "@/generated/prisma/client";
 import DatabaseError from "@/infrastructure/core/errors/DatabaseError";
 import { prisma } from "@/infrastructure/prisma/client";
 import { PrismaPostMapper } from "../mappers/PrismaPostMapper";
+
+/** Category, author, engagement counts and (with a viewer) their own like. */
+function forumPostInclude(viewerId?: string | null) {
+  return {
+    postCategory: true,
+    author: { select: { id: true, name: true, email: true, userType: true } },
+    _count: { select: { postLikes: true, postComments: true } },
+    ...(viewerId ? { postLikes: { where: { userId: viewerId }, select: { id: true } } } : {}),
+  } satisfies Prisma.PostInclude;
+}
 
 export class PrismaPostRepository implements IPostRepository {
   async listByAuthor(authorId: string, { includeDrafts }: ListByAuthorOptions): Promise<AuthorPost[]> {
@@ -33,6 +44,7 @@ export class PrismaPostRepository implements IPostRepository {
     since,
     orderBy,
     limit,
+    excludeId,
     viewerId,
   }: ListPublishedOptions): Promise<ForumPost[]> {
     const order: Prisma.PostOrderByWithRelationInput[] =
@@ -45,13 +57,9 @@ export class PrismaPostRepository implements IPostRepository {
           published: true,
           ...(categoryId ? { postCategoryId: categoryId } : {}),
           ...(since ? { createdAt: { gte: since } } : {}),
+          ...(excludeId ? { id: { not: excludeId } } : {}),
         },
-        include: {
-          postCategory: true,
-          author: { select: { id: true, name: true, email: true, userType: true } },
-          _count: { select: { postLikes: true, postComments: true } },
-          ...(viewerId ? { postLikes: { where: { userId: viewerId }, select: { id: true } } } : {}),
-        },
+        include: forumPostInclude(viewerId),
         orderBy: order,
         ...(limit ? { take: limit } : {}),
       });
@@ -84,6 +92,29 @@ export class PrismaPostRepository implements IPostRepository {
       return row ? PrismaPostMapper.toDomain(row) : null;
     } catch (error) {
       throw new DatabaseError("Could not find Post", { cause: error });
+    }
+  }
+
+  async findDetail(id: string, viewerId?: string | null): Promise<PostDetail | null> {
+    try {
+      const row = await prisma.post.findUnique({
+        where: { id },
+        include: {
+          ...forumPostInclude(viewerId),
+          author: { select: { id: true, name: true, email: true, userType: true, biography: true } },
+        },
+      });
+      return row ? PrismaPostMapper.toPostDetail(row) : null;
+    } catch (error) {
+      throw new DatabaseError("Could not find Post detail", { cause: error });
+    }
+  }
+
+  async incrementImpressions(id: string): Promise<void> {
+    try {
+      await prisma.post.update({ where: { id }, data: { impressionCount: { increment: 1 } } });
+    } catch (error) {
+      throw new DatabaseError("Could not count Post view", { cause: error });
     }
   }
 

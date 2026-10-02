@@ -2,6 +2,7 @@ import { PostCategoryNotFoundError } from "@/application/postCategory/errors/Pos
 import { Post } from "@/domain/post/entities/Post";
 import { AuthorPost } from "@/domain/post/readmodels/AuthorPost";
 import { ForumPost } from "@/domain/post/readmodels/ForumPost";
+import { PostDetail } from "@/domain/post/readmodels/PostDetail";
 import {
   IPostRepository,
   ListByAuthorOptions,
@@ -66,6 +67,29 @@ export class PostService implements IPostService {
       postCategoryId: input.postCategoryId,
     });
     return this.postRepository.create(post);
+  }
+
+  async getDetail(id: string, viewerId: string | null): Promise<PostDetail> {
+    const detail = await this.postRepository.findDetail(id, viewerId);
+    if (!detail) throw new PostNotFoundError(id);
+    if (!detail.post.published && detail.post.authorId !== viewerId) throw new PostNotFoundError(id);
+    return detail;
+  }
+
+  async registerView(id: string): Promise<void> {
+    const post = await this.postRepository.findById(id);
+    if (!post || !post.published) throw new PostNotFoundError(id);
+    await this.postRepository.incrementImpressions(id);
+  }
+
+  async listRelated(post: Post, limit = 2): Promise<ForumPost[]> {
+    if (!post.postCategoryId) return [];
+    return this.postRepository.listPublished({
+      categoryId: post.postCategoryId,
+      excludeId: post.id ?? undefined,
+      orderBy: "votes",
+      limit,
+    });
   }
 
   async toggleVote(postId: string, userId: string): Promise<{ voted: boolean }> {
