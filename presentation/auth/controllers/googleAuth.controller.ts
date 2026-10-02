@@ -13,11 +13,15 @@ const flowCookieOptions = {
   maxAge: 10 * 60,
 } as const;
 
-/** Browser redirect (not JSON): this flow is navigated to, never fetched. */
-function redirectTo(path: string, request: Request): Response {
+/**
+ * Browser redirect (not JSON): this flow is navigated to, never fetched.
+ * Relative Location on purpose: behind a proxy `request.url` carries the
+ * server's bind address (e.g. 0.0.0.0), not the public origin.
+ */
+function redirectTo(path: string): Response {
   return new Response(null, {
     status: 303,
-    headers: { Location: new URL(path, request.url).toString() },
+    headers: { Location: path },
   });
 }
 
@@ -34,7 +38,7 @@ export default class GoogleAuthController {
       authorization = this.authService.startGoogleLogin();
     } catch (error) {
       console.error(error);
-      return redirectTo("/acceso?error=google", request);
+      return redirectTo("/acceso?error=google");
     }
 
     const store = await cookies();
@@ -62,16 +66,16 @@ export default class GoogleAuthController {
     const code = params.get("code");
     const state = params.get("state");
     if (!code || !state || !expectedState || !codeVerifier || state !== expectedState) {
-      return redirectTo("/acceso?error=google", request);
+      return redirectTo("/acceso?error=google");
     }
 
     try {
       const { user, token, expiresAt } = await this.authService.loginWithGoogle(code, codeVerifier);
       await this.session.setSessionCookie(token, expiresAt);
-      return redirectTo(user.isOnboarded ? "/" : "/bienvenida", request);
+      return redirectTo(user.isOnboarded ? "/" : "/bienvenida");
     } catch (error) {
       console.error(error);
-      return redirectTo("/acceso?error=google", request);
+      return redirectTo("/acceso?error=google");
     }
   }
 }
